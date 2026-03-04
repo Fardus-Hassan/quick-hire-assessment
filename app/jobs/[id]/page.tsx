@@ -100,7 +100,7 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
               </div>
 
               <div>
-                <ApplyForm jobTitle={job.title} />
+                <ApplyForm jobId={job.id} jobTitle={job.title} />
               </div>
             </div>
           </Container>

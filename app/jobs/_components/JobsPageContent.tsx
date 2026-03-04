@@ -130,7 +130,7 @@ export default function JobsPageContent() {
               )}
             </div>
 
-            {jobs.length === 0 ? (
+            {!isLoading && jobs.length === 0 ? (
               <p className="mt-8 text-center text-[#7C8493] text-[14px]">
                 No jobs found. Try adjusting your search or filters.
               </p>

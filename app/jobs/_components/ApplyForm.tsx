@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useCreateApplicationMutation } from "@/lib/api/applicationsApi";
 
 const applySchema = z.object({
   name: z.string().min(2, "Name is too short"),
@@ -26,11 +28,13 @@ const applySchema = z.object({
 type ApplyFormValues = z.infer<typeof applySchema>;
 
 type ApplyFormProps = {
+  jobId: string;
   jobTitle: string;
 };
 
-export function ApplyForm({ jobTitle }: ApplyFormProps) {
+export function ApplyForm({ jobId, jobTitle }: ApplyFormProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [createApplication, { isLoading }] = useCreateApplicationMutation();
 
   const form = useForm<ApplyFormValues>({
     resolver: zodResolver(applySchema),
@@ -42,10 +46,24 @@ export function ApplyForm({ jobTitle }: ApplyFormProps) {
     },
   });
 
-  function onSubmit(values: ApplyFormValues) {
-    console.log("Application submitted for", jobTitle, values);
-    setSubmitted(true);
-    form.reset();
+  async function onSubmit(values: ApplyFormValues) {
+    try {
+      await createApplication({
+        job_id: jobId,
+        name: values.name.trim(),
+        email: values.email.trim(),
+        resume_link: values.resumeUrl.trim(),
+        cover_note: values.coverNote.trim(),
+      }).unwrap();
+      setSubmitted(true);
+      toast.success("Application submitted successfully");
+      form.reset();
+    } catch (error) {
+      const message =
+        (error as Error | undefined)?.message ??
+        "Failed to submit application";
+      toast.error(message);
+    }
   }
 
   return (
@@ -131,14 +149,15 @@ export function ApplyForm({ jobTitle }: ApplyFormProps) {
 
           <Button
             type="submit"
-            className="w-full md:w-auto bg-[#4640DE] hover:bg-[#3b36be]"
+            disabled={isLoading}
+            className="w-full md:w-auto bg-[#4640DE] hover:bg-[#3b36be] disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            Submit application
+            {isLoading ? "Submitting..." : "Submit application"}
           </Button>
 
-          {submitted && (
+          {submitted && !isLoading && (
             <p className="text-[13px] text-[#56CDAD] mt-2">
-              Application submitted! (Demo only – no data is stored.)
+              Application submitted!
             </p>
           )}
         </form>
