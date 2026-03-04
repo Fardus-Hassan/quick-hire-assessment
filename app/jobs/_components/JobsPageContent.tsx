@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Search } from "lucide-react";
 
 import Container from "@/components/Container";
+import { Pagination } from "@/components/Pagination";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -23,6 +24,8 @@ export default function JobsPageContent() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<string>("all");
   const [location, setLocation] = useState<string>("all");
+  const [jobsPage, setJobsPage] = useState(1);
+  const JOBS_PER_PAGE = 20;
 
   useEffect(() => {
     if (status === "idle") {
@@ -59,6 +62,17 @@ export default function JobsPageContent() {
     [jobs, search, category, location],
   );
 
+  const totalJobsPages = Math.max(1, Math.ceil(filteredJobs.length / JOBS_PER_PAGE));
+  const effectivePage = Math.min(jobsPage, Math.max(1, totalJobsPages));
+  const paginatedJobs = useMemo(
+    () =>
+      filteredJobs.slice(
+        (effectivePage - 1) * JOBS_PER_PAGE,
+        effectivePage * JOBS_PER_PAGE,
+      ),
+    [filteredJobs, effectivePage],
+  );
+
   if (status === "loading") {
     return <JobsSkeleton />;
   }
@@ -67,7 +81,7 @@ export default function JobsPageContent() {
     <section className="w-full bg-[#F8F8FD] py-12 md:py-16 lg:py-20">
       <Container>
         <div className="mb-10 md:mb-12">
-          <h1 className="text-[32px] md:text-[40px] lg:text-[48px] font-[600] leading-tight text-[#25324B]">
+          <h1 className="text-[32px] md:text-[40px] lg:text-[48px] font-semibold leading-tight text-[#25324B]">
             Find your next{" "}
             <span className="text-[#26A4FF]">opportunity</span>
           </h1>
@@ -90,7 +104,10 @@ export default function JobsPageContent() {
                 placeholder="Search by title or company"
                 className="pl-9 bg-white"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setJobsPage(1);
+                }}
               />
             </div>
           </div>
@@ -101,7 +118,10 @@ export default function JobsPageContent() {
             </label>
             <Select
               value={category}
-              onValueChange={(value) => setCategory(value)}
+              onValueChange={(value) => {
+                setCategory(value);
+                setJobsPage(1);
+              }}
             >
               <SelectTrigger className="bg-white w-full border-[#D6DDEB] text-[#7C8493]">
                 <SelectValue placeholder="All categories" />
@@ -123,7 +143,10 @@ export default function JobsPageContent() {
             </label>
             <Select
               value={location}
-              onValueChange={(value) => setLocation(value)}
+              onValueChange={(value) => {
+                setLocation(value);
+                setJobsPage(1);
+              }}
             >
               <SelectTrigger className="bg-white w-full border-[#D6DDEB] text-[#7C8493]">
                 <SelectValue placeholder="All locations" />
@@ -147,15 +170,26 @@ export default function JobsPageContent() {
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {filteredJobs.map((job) => (
+              {paginatedJobs.map((job) => (
                 <JobCard key={job.id} job={job} />
               ))}
             </div>
 
-            {filteredJobs.length === 0 && (
+            {filteredJobs.length === 0 ? (
               <p className="mt-8 text-center text-[#7C8493] text-[14px]">
                 No jobs found. Try adjusting your search or filters.
               </p>
+            ) : (
+              totalJobsPages > 1 && (
+                <Pagination
+                  currentPage={effectivePage}
+                  totalPages={totalJobsPages}
+                  totalItems={filteredJobs.length}
+                  onPageChange={setJobsPage}
+                  itemLabel="jobs"
+                  className="mt-10"
+                />
+              )
             )}
           </>
         )}
