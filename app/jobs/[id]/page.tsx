@@ -1,19 +1,20 @@
  "use client";
 
+import { use, useEffect } from "react";
 import Navbar from "@/app/(home)/_components/Navbar";
 import Footer from "@/app/(home)/_components/Footer";
 import Container from "@/components/Container";
 import { ApplyForm } from "../_components/ApplyForm";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { fetchJobs } from "@/lib/stores/jobsSlice";
-import { useEffect } from "react";
 
 type JobDetailPageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default function JobDetailPage({ params }: JobDetailPageProps) {
-  const jobId = Number(params.id);
+  const { id } = use(params);
+  const jobId = Number(id);
   const dispatch = useAppDispatch();
   const { items: jobs, status } = useAppSelector((state) => state.jobs);
   const job = jobs.find((j) => j.id === jobId);
@@ -80,13 +81,13 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
                 <p className="text-[13px] uppercase tracking-[0.08em] text-[#7C8493] mb-3">
                   {job.category}
                 </p>
-                <h1 className="text-[32px] md:text-[40px] font-[600] leading-tight text-[#25324B] mb-4">
+                <h1 className="text-[32px] md:text-[40px] font-semibold leading-tight text-[#25324B] mb-4">
                   {job.title}
                 </h1>
                 <p className="text-[15px] text-[#7C8493] mb-6">
                   {job.company} <span className="mx-1">•</span> {job.location}
                 </p>
-                <p className="text-[13px] text-[#7C8493] mb-8">
+                <p className="text-[13px] text-[#7C8493] mb-6">
                   Posted on{" "}
                   {new Date(job.created_at).toLocaleDateString(undefined, {
                     year: "numeric",
@@ -95,8 +96,29 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
                   })}
                 </p>
 
-                <div className="prose max-w-none text-[15px] leading-relaxed text-[#515B6F]">
-                  <p>{job.description}</p>
+                <div className="space-y-6">
+                  <div>
+                    <h2 className="text-[14px] font-semibold text-[#25324B] uppercase tracking-wide mb-2">
+                      Summary
+                    </h2>
+                    <p className="text-[15px] leading-relaxed text-[#515B6F]">
+                      {job.short_description}
+                    </p>
+                  </div>
+
+                  {job.main_description && (
+                    <div>
+                      <h2 className="text-[14px] font-semibold text-[#25324B] uppercase tracking-wide mb-2">
+                        Full description
+                      </h2>
+                      <div
+                        className="prose max-w-none text-[15px] leading-relaxed text-[#515B6F]"
+                        dangerouslySetInnerHTML={{
+                          __html: job.main_description,
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
 

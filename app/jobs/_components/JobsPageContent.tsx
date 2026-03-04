@@ -103,7 +103,7 @@ export default function JobsPageContent() {
               value={category}
               onValueChange={(value) => setCategory(value)}
             >
-              <SelectTrigger className="bg-white w-full">
+              <SelectTrigger className="bg-white w-full border-[#D6DDEB] text-[#7C8493]">
                 <SelectValue placeholder="All categories" />
               </SelectTrigger>
               <SelectContent>
@@ -125,7 +125,7 @@ export default function JobsPageContent() {
               value={location}
               onValueChange={(value) => setLocation(value)}
             >
-              <SelectTrigger className="bg-white w-full">
+              <SelectTrigger className="bg-white w-full border-[#D6DDEB] text-[#7C8493]">
                 <SelectValue placeholder="All locations" />
               </SelectTrigger>
               <SelectContent>
@@ -146,7 +146,7 @@ export default function JobsPageContent() {
           </p>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {filteredJobs.map((job) => (
                 <JobCard key={job.id} job={job} />
               ))}

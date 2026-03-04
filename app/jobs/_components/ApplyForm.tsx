@@ -53,7 +53,7 @@ export function ApplyForm({ jobTitle }: ApplyFormProps) {
       <h2 className="text-[20px] md:text-[22px] font-semibold text-[#25324B] mb-4">
         Apply Now
       </h2>
-      <p className="text-[14px] text-[#7C8493] mb-6">
+      <p className="text-[14px] text-[#25324B] mb-6">
         Fill in the form below to apply for{" "}
         <span className="font-semibold text-[#25324B]">{jobTitle}</span>.
       </p>
@@ -65,7 +65,7 @@ export function ApplyForm({ jobTitle }: ApplyFormProps) {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel className="text-[14px] text-[#25324B]">Name</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter your full name" {...field} />
                 </FormControl>
@@ -79,7 +79,7 @@ export function ApplyForm({ jobTitle }: ApplyFormProps) {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-[14px] text-[#25324B]">Email</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
@@ -97,7 +97,7 @@ export function ApplyForm({ jobTitle }: ApplyFormProps) {
             name="resumeUrl"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Resume link (URL)</FormLabel>
+                <FormLabel className="text-[14px] text-[#25324B]">Resume link (URL)</FormLabel>
                 <FormControl>
                   <Input
                     type="url"
@@ -115,10 +115,10 @@ export function ApplyForm({ jobTitle }: ApplyFormProps) {
             name="coverNote"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Cover note</FormLabel>
+                <FormLabel className="text-[14px] text-[#25324B]">Cover note</FormLabel>
                 <FormControl>
                   <textarea
-                    className="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
+                    className="file:text-foreground border-[#D6DDEB]  placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 text-[#25324B] w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
                     rows={4}
                     placeholder="Write a short cover note..."
                     {...field}

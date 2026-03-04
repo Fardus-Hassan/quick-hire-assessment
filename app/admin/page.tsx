@@ -22,7 +22,8 @@ export default function AdminPage() {
     company: "",
     location: "",
     category: "",
-    description: "",
+    short_description: "",
+    main_description: "",
   });
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export default function AdminPage() {
       form.company.trim().length > 0 &&
       form.location.trim().length > 0 &&
       form.category.trim().length > 0 &&
-      form.description.trim().length > 0,
+      form.short_description.trim().length > 0,
     [form],
   );
 
@@ -63,7 +64,8 @@ export default function AdminPage() {
       company: form.company.trim(),
       location: form.location.trim(),
       category: form.category.trim(),
-      description: form.description.trim(),
+      short_description: form.short_description.trim(),
+      main_description: form.main_description?.trim() || undefined,
       created_at: new Date().toISOString(),
     };
 
@@ -74,7 +76,8 @@ export default function AdminPage() {
       company: "",
       location: "",
       category: "",
-      description: "",
+      short_description: "",
+      main_description: "",
     });
   }
 
@@ -90,7 +93,7 @@ export default function AdminPage() {
         <section className="py-12 md:py-16 lg:py-20">
           <Container>
             <div className="mb-8">
-              <h1 className="text-[28px] md:text-[36px] font-[600] text-[#25324B]">
+              <h1 className="text-[28px] md:text-[36px] font-semibold text-[#25324B]">
                 Admin – Manage jobs
               </h1>
               <p className="mt-2 text-[14px] md:text-[15px] text-[#7C8493] max-w-2xl">
@@ -161,16 +164,30 @@ export default function AdminPage() {
 
                   <div>
                     <label className="block text-[14px] font-medium text-[#25324B] mb-1.5">
-                      Description
+                      Short description
+                    </label>
+                    <textarea
+                      className="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
+                      rows={2}
+                      value={form.short_description}
+                      onChange={(e) =>
+                        handleChange("short_description", e.target.value)
+                      }
+                      placeholder="Brief summary for listings..."
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[14px] font-medium text-[#25324B] mb-1.5">
+                      Main description (optional, HTML)
                     </label>
                     <textarea
                       className="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
                       rows={4}
-                      value={form.description}
+                      value={form.main_description ?? ""}
                       onChange={(e) =>
-                        handleChange("description", e.target.value)
+                        handleChange("main_description", e.target.value)
                       }
-                      placeholder="Short description of the role..."
+                      placeholder="Rich HTML for detail page (e.g. &lt;p&gt;, &lt;strong&gt;, &lt;u&gt;, &lt;span style=...&gt;)"
                     />
                   </div>
 
