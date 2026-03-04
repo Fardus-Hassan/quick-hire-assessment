@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { jobsReducer } from "./stores/jobsSlice";
+import { baseApi } from "./api/baseApi";
 
 export const store = configureStore({
   reducer: {
-    jobs: jobsReducer,
+    [baseApi.reducerPath]: baseApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(baseApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

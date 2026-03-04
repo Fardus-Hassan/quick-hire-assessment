@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Bricolage_Grotesque, Epilogue, Red_Hat_Display } from "next/font/google";
 import "./globals.css";
 import { AppProviders } from "./providers";
+import { Toaster } from "react-hot-toast";
 import Navbar from "./(home)/_components/Navbar";
 import Footer from "./(home)/_components/Footer";
 
@@ -50,6 +51,7 @@ export default function RootLayout({
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
+          <Toaster position="top-right" />
         </AppProviders>
       </body>
     </html>

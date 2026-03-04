@@ -1,10 +1,9 @@
  "use client";
 
-import { use, useEffect } from "react";
+import { use } from "react";
 import Container from "@/components/Container";
 import { ApplyForm } from "../_components/ApplyForm";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { fetchJobs } from "@/lib/stores/jobsSlice";
+import { useGetJobQuery } from "@/lib/api/jobsApi";
 
 type JobDetailPageProps = {
   params: Promise<{ id: string }>;
@@ -12,18 +11,9 @@ type JobDetailPageProps = {
 
 export default function JobDetailPage({ params }: JobDetailPageProps) {
   const { id } = use(params);
-  const jobId = Number(id);
-  const dispatch = useAppDispatch();
-  const { items: jobs, status } = useAppSelector((state) => state.jobs);
-  const job = jobs.find((j) => j.id === jobId);
+  const { data: job, isLoading, isError } = useGetJobQuery(id);
 
-  useEffect(() => {
-    if (status === "idle") {
-      void dispatch(fetchJobs());
-    }
-  }, [dispatch, status]);
-
-  if (status === "loading" || (status === "idle" && !job)) {
+  if (isLoading && !job) {
     return (
       <section className="w-full bg-[#F8F8FD] py-24">
         <Container>
@@ -43,7 +33,7 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
     );
   }
 
-  if (!job) {
+  if (isError || !job) {
     return (
       <section className="w-full bg-[#F8F8FD] py-24">
         <Container>
