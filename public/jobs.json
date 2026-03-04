@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "title": "Frontend Developer",
+    "company": "TechNova Ltd",
+    "location": "Dhaka, Bangladesh",
+    "category": "Software Engineering",
+    "description": "Responsible for building and maintaining web UI using React, JavaScript, and modern frontend tooling.",
+    "created_at": "2026-02-20T10:15:00Z"
+  },
+  {
+    "id": 2,
+    "title": "Backend Developer",
+    "company": "CloudWare Solutions",
+    "location": "Remote",
+    "category": "Software Engineering",
+    "description": "Design and develop RESTful APIs, work with Node.js and databases, and ensure scalability and security.",
+    "created_at": "2026-02-19T09:30:00Z"
+  },
+  {
+    "id": 3,
+    "title": "Full Stack Engineer",
+    "company": "PixelSoft",
+    "location": "Chattogram, Bangladesh",
+    "category": "Software Engineering",
+    "description": "Work across frontend and backend stacks to deliver new features and maintain existing systems.",
+    "created_at": "2026-02-18T13:45:00Z"
+  },
+  {
+    "id": 4,
+    "title": "UI/UX Designer",
+    "company": "Creative Hub",
+    "location": "Dhaka, Bangladesh",
+    "category": "Design",
+    "description": "Create wireframes, prototypes, and high-fidelity designs for web and mobile applications.",
+    "created_at": "2026-02-17T11:05:00Z"
+  },
+  {
+    "id": 5,
+    "title": "Product Manager",
+    "company": "GrowthLoop",
+    "location": "Remote",
+    "category": "Product",
+    "description": "Own product vision, gather requirements, prioritize roadmap, and collaborate with engineering and design teams.",
+    "created_at": "2026-02-16T16:20:00Z"
+  },
+  {
+    "id": 6,
+    "title": "Data Analyst",
+    "company": "Insight Analytics",
+    "location": "Dhaka, Bangladesh",
+    "category": "Data",
+    "description": "Analyze datasets, build dashboards, and provide data-driven insights to stakeholders.",
+    "created_at": "2026-02-15T08:40:00Z"
+  },
+  {
+    "id": 7,
+    "title": "DevOps Engineer",
+    "company": "InfraWorks",
+    "location": "Remote",
+    "category": "DevOps",
+    "description": "Manage CI/CD pipelines, cloud infrastructure, and monitoring tools to ensure reliable deployments.",
+    "created_at": "2026-02-14T14:10:00Z"
+  },
+  {
+    "id": 8,
+    "title": "Mobile App Developer",
+    "company": "Appify Studio",
+    "location": "Dhaka, Bangladesh",
+    "category": "Mobile Development",
+    "description": "Develop and maintain Android and iOS applications with React Native or Flutter.",
+    "created_at": "2026-02-13T09:55:00Z"
+  },
+  {
+    "id": 9,
+    "title": "QA Engineer",
+    "company": "QualityFirst",
+    "location": "Remote",
+    "category": "Quality Assurance",
+    "description": "Write test cases, perform manual and automated testing, and ensure product quality before release.",
+    "created_at": "2026-02-12T12:25:00Z"
+  },
+  {
+    "id": 10,
+    "title": "Machine Learning Engineer",
+    "company": "AI Dynamics",
+    "location": "Dhaka, Bangladesh",
+    "category": "Data",
+    "description": "Build and deploy machine learning models, work with Python, and optimize model performance.",
+    "created_at": "2026-02-11T15:35:00Z"
+  },
+  {
+    "id": 11,
+    "title": "Technical Support Engineer",
+    "company": "HelpDesk Pro",
+    "location": "Chattogram, Bangladesh",
+    "category": "Support",
+    "description": "Provide technical support to customers, troubleshoot issues, and document common problems.",
+    "created_at": "2026-02-10T07:50:00Z"
+  },
+  {
+    "id": 12,
+    "title": "Systems Administrator",
+    "company": "NetSecure",
+    "location": "Dhaka, Bangladesh",
+    "category": "IT Operations",
+    "description": "Maintain servers, networks, and security systems to ensure uptime and performance.",
+    "created_at": "2026-02-09T10:00:00Z"
+  },
+  {
+    "id": 13,
+    "title": "Content Writer",
+    "company": "StoryLine Media",
+    "location": "Remote",
+    "category": "Content",
+    "description": "Write blog posts, landing page copy, and marketing content optimized for SEO.",
+    "created_at": "2026-02-08T13:20:00Z"
+  },
+  {
+    "id": 14,
+    "title": "Digital Marketing Specialist",
+    "company": "GrowthHive",
+    "location": "Dhaka, Bangladesh",
+    "category": "Marketing",
+    "description": "Plan and execute digital campaigns, manage social media, and track performance metrics.",
+    "created_at": "2026-02-07T09:10:00Z"
+  },
+  {
+    "id": 15,
+    "title": "HR Generalist",
+    "company": "PeopleFirst",
+    "location": "Dhaka, Bangladesh",
+    "category": "Human Resources",
+    "description": "Handle recruitment, onboarding, employee relations, and HR documentation.",
+    "created_at": "2026-02-06T11:45:00Z"
+  },
+  {
+    "id": 16,
+    "title": "Business Analyst",
+    "company": "BizInsight",
+    "location": "Remote",
+    "category": "Business",
+    "description": "Gather requirements, document processes, and work with stakeholders to improve business workflows.",
+    "created_at": "2026-02-05T14:55:00Z"
+  },
+  {
+    "id": 17,
+    "title": "Graphic Designer",
+    "company": "BrandCraft",
+    "location": "Dhaka, Bangladesh",
+    "category": "Design",
+    "description": "Design marketing materials, social media graphics, and brand assets using modern tools.",
+    "created_at": "2026-02-04T08:30:00Z"
+  },
+  {
+    "id": 18,
+    "title": "Sales Executive",
+    "company": "SalesBridge",
+    "location": "Chattogram, Bangladesh",
+    "category": "Sales",
+    "description": "Reach out to potential clients, maintain relationships, and achieve sales targets.",
+    "created_at": "2026-02-03T10:05:00Z"
+  },
+  {
+    "id": 19,
+    "title": "Customer Success Manager",
+    "company": "ClientCare",
+    "location": "Remote",
+    "category": "Customer Success",
+    "description": "Ensure customers achieve value from the product, manage renewals, and reduce churn.",
+    "created_at": "2026-02-02T12:15:00Z"
+  },
+  {
+    "id": 20,
+    "title": "Project Manager",
+    "company": "AgileWorks",
+    "location": "Dhaka, Bangladesh",
+    "category": "Project Management",
+    "description": "Plan and track project timelines, manage resources, and communicate progress to stakeholders.",
+    "created_at": "2026-02-01T09:25:00Z"
+  }
+]

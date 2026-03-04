@@ -23,13 +23,13 @@ const Navbar = () => {
             </span>
           </div>
 
-          {/* Nav Links (Hidden on small mobile, visible on tablet/desktop) */}
+         {/* Nav Links (Hidden on small mobile, visible on tablet/desktop) */}
           <div className="hidden md:flex justify-center items-center gap-6">
-            <a href="#" className="text-[#515B6F] text-[16px] font-medium font-Epilogue hover:text-[#4640DE] transition-colors leading-[160%]">
+            <a href="/jobs" className="text-[#515B6F] text-[16px] font-medium font-Epilogue hover:text-[#4640DE] transition-colors leading-[160%]">
               Find Jobs
             </a>
-            <a href="#" className="text-[#515B6F] text-[16px] font-medium font-Epilogue hover:text-[#4640DE] transition-colors leading-[160%]">
-              Browse Companies
+            <a href="/admin" className="text-[#515B6F] text-[16px] font-medium font-Epilogue hover:text-[#4640DE] transition-colors leading-[160%]">
+              Admin
             </a>
           </div>
         </div>
@@ -76,11 +76,11 @@ const Navbar = () => {
         }`}
       >
         <div className="flex flex-col items-center gap-8 w-full">
-          <a onClick={() => setIsOpen(false)} href="#" className="text-[#515B6F] text-[16px] font-medium font-Epilogue hover:text-[#4640DE] transition-colors leading-[160%]">
+          <a onClick={() => setIsOpen(false)} href="/jobs" className="text-[#515B6F] text-[16px] font-medium font-Epilogue hover:text-[#4640DE] transition-colors leading-[160%]">
             Find Jobs
           </a>
-          <a onClick={() => setIsOpen(false)} href="#" className="text-[#515B6F] text-[16px] font-medium font-Epilogue hover:text-[#4640DE] transition-colors leading-[160%]">
-            Browse Companies
+          <a onClick={() => setIsOpen(false)} href="/admin" className="text-[#515B6F] text-[16px] font-medium font-Epilogue hover:text-[#4640DE] transition-colors leading-[160%]">
+            Admin
           </a>
           
           <div className="w-full h-px bg-[#D6DDEB] my-2"></div>

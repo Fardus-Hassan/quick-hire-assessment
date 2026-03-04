@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Bricolage_Grotesque, Epilogue, Red_Hat_Display } from "next/font/google";
 import "./globals.css";
+import { AppProviders } from "./providers";
 
 const sans = Poppins({
   variable: "--font-sans",
@@ -41,9 +42,11 @@ export default function RootLayout({
       <body
         className={`${sans.variable} ${sans.className} ${fontTitle.variable} ${epilogue.variable} ${redHat.variable} antialiased`}
       >
-        <div className="min-h-screen flex flex-col">
-          <main className="flex-1">{children}</main>
-        </div>
+        <AppProviders>
+          <div className="min-h-screen flex flex-col">
+            <main className="flex-1">{children}</main>
+          </div>
+        </AppProviders>
       </body>
     </html>
   );

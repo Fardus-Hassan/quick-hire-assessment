@@ -1,0 +1,149 @@
+"use client";
+
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+
+const applySchema = z.object({
+  name: z.string().min(2, "Name is too short"),
+  email: z.string().email("Enter a valid email address"),
+  resumeUrl: z.string().url("Enter a valid URL"),
+  coverNote: z.string().min(10, "Cover note should be at least 10 characters"),
+});
+
+type ApplyFormValues = z.infer<typeof applySchema>;
+
+type ApplyFormProps = {
+  jobTitle: string;
+};
+
+export function ApplyForm({ jobTitle }: ApplyFormProps) {
+  const [submitted, setSubmitted] = useState(false);
+
+  const form = useForm<ApplyFormValues>({
+    resolver: zodResolver(applySchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      resumeUrl: "",
+      coverNote: "",
+    },
+  });
+
+  function onSubmit(values: ApplyFormValues) {
+    console.log("Application submitted for", jobTitle, values);
+    setSubmitted(true);
+    form.reset();
+  }
+
+  return (
+    <div className="border border-[#D6DDEB] bg-white p-6 md:p-8 rounded-md shadow-sm">
+      <h2 className="text-[20px] md:text-[22px] font-semibold text-[#25324B] mb-4">
+        Apply Now
+      </h2>
+      <p className="text-[14px] text-[#7C8493] mb-6">
+        Fill in the form below to apply for{" "}
+        <span className="font-semibold text-[#25324B]">{jobTitle}</span>.
+      </p>
+
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your full name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    type="email"
+                    placeholder="you@example.com"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="resumeUrl"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Resume link (URL)</FormLabel>
+                <FormControl>
+                  <Input
+                    type="url"
+                    placeholder="https://drive.google.com/..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="coverNote"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Cover note</FormLabel>
+                <FormControl>
+                  <textarea
+                    className="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
+                    rows={4}
+                    placeholder="Write a short cover note..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button
+            type="submit"
+            className="w-full md:w-auto bg-[#4640DE] hover:bg-[#3b36be]"
+          >
+            Submit application
+          </Button>
+
+          {submitted && (
+            <p className="text-[13px] text-[#56CDAD] mt-2">
+              Application submitted! (Demo only – no data is stored.)
+            </p>
+          )}
+        </form>
+      </Form>
+    </div>
+  );
+}
+
