@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Poppins, Bricolage_Grotesque, Epilogue, Red_Hat_Display } from "next/font/google";
 import "./globals.css";
 import { AppProviders } from "./providers";
+import Navbar from "./(home)/_components/Navbar";
+import Footer from "./(home)/_components/Footer";
 
 const sans = Poppins({
   variable: "--font-sans",
@@ -44,7 +46,9 @@ export default function RootLayout({
       >
         <AppProviders>
           <div className="min-h-screen flex flex-col">
+            <Navbar />
             <main className="flex-1">{children}</main>
+            <Footer />
           </div>
         </AppProviders>
       </body>

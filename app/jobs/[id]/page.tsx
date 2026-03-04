@@ -1,8 +1,6 @@
  "use client";
 
 import { use, useEffect } from "react";
-import Navbar from "@/app/(home)/_components/Navbar";
-import Footer from "@/app/(home)/_components/Footer";
 import Container from "@/components/Container";
 import { ApplyForm } from "../_components/ApplyForm";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
@@ -27,54 +25,43 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
 
   if (status === "loading" || (status === "idle" && !job)) {
     return (
-      <>
-        <Navbar />
-        <section className="w-full bg-[#F8F8FD] py-24">
-          <Container>
-            <div className="max-w-2xl space-y-4">
-              <div className="h-4 w-24 bg-[#E5E7EB] rounded-md animate-pulse" />
-              <div className="h-8 w-72 bg-[#E5E7EB] rounded-md animate-pulse" />
-              <div className="h-4 w-40 bg-[#E5E7EB] rounded-md animate-pulse" />
-              <div className="h-3 w-32 bg-[#E5E7EB] rounded-md animate-pulse" />
-              <div className="space-y-2 pt-4">
-                <div className="h-3 w-full bg-[#E5E7EB] rounded-md animate-pulse" />
-                <div className="h-3 w-5/6 bg-[#E5E7EB] rounded-md animate-pulse" />
-                <div className="h-3 w-3/4 bg-[#E5E7EB] rounded-md animate-pulse" />
-              </div>
+      <section className="w-full bg-[#F8F8FD] py-24">
+        <Container>
+          <div className="max-w-2xl space-y-4">
+            <div className="h-4 w-24 bg-[#E5E7EB] rounded-md animate-pulse" />
+            <div className="h-8 w-72 bg-[#E5E7EB] rounded-md animate-pulse" />
+            <div className="h-4 w-40 bg-[#E5E7EB] rounded-md animate-pulse" />
+            <div className="h-3 w-32 bg-[#E5E7EB] rounded-md animate-pulse" />
+            <div className="space-y-2 pt-4">
+              <div className="h-3 w-full bg-[#E5E7EB] rounded-md animate-pulse" />
+              <div className="h-3 w-5/6 bg-[#E5E7EB] rounded-md animate-pulse" />
+              <div className="h-3 w-3/4 bg-[#E5E7EB] rounded-md animate-pulse" />
             </div>
-          </Container>
-        </section>
-        <Footer />
-      </>
+          </div>
+        </Container>
+      </section>
     );
   }
 
   if (!job) {
     return (
-      <>
-        <Navbar />
-        <section className="w-full bg-[#F8F8FD] py-24">
-          <Container>
-            <h1 className="text-[32px] md:text-[40px] font-semibold text-[#25324B] mb-4">
-              Job not found
-            </h1>
-            <p className="text-[14px] md:text-[16px] text-[#7C8493]">
-              The job you are looking for does not exist or may have been
-              removed.
-            </p>
-          </Container>
-        </section>
-        <Footer />
-      </>
+      <section className="w-full bg-[#F8F8FD] py-24">
+        <Container>
+          <h1 className="text-[32px] md:text-[40px] font-semibold text-[#25324B] mb-4">
+            Job not found
+          </h1>
+          <p className="text-[14px] md:text-[16px] text-[#7C8493]">
+            The job you are looking for does not exist or may have been
+            removed.
+          </p>
+        </Container>
+      </section>
     );
   }
 
   return (
-    <>
-      <div className="relative w-full bg-[#F8F8FD] overflow-hidden">
-        <Navbar />
-
-        <section className="py-12 md:py-16 lg:py-20">
+    <div className="relative w-full bg-[#F8F8FD] overflow-hidden">
+      <section className="py-12 md:py-16 lg:py-20">
           <Container>
             <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)] gap-10 lg:gap-12">
               <div>
@@ -127,10 +114,8 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
               </div>
             </div>
           </Container>
-        </section>
-      </div>
-      <Footer />
-    </>
+      </section>
+    </div>
   );
 }
 

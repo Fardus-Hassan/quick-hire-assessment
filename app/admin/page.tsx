@@ -1,14 +1,19 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Trash2, Plus } from "lucide-react";
+import { Trash2, Plus, Eye } from "lucide-react";
 
-import Navbar from "@/app/(home)/_components/Navbar";
-import Footer from "@/app/(home)/_components/Footer";
 import Container from "@/components/Container";
 import { Pagination } from "@/components/Pagination";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Job } from "@/lib/types";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { addJob, deleteJob, fetchJobs } from "@/lib/stores/jobsSlice";
@@ -19,6 +24,7 @@ export default function AdminPage() {
   const dispatch = useAppDispatch();
   const { items: jobs, status } = useAppSelector((state) => state.jobs);
   const [listingsPage, setListingsPage] = useState(1);
+  const [mainDescPreviewOpen, setMainDescPreviewOpen] = useState(false);
   const LISTINGS_PER_PAGE = 20;
   const [form, setForm] = useState<JobForm>({
     title: "",
@@ -102,11 +108,8 @@ export default function AdminPage() {
   );
 
   return (
-    <>
-      <div className="relative w-full bg-[#F8F8FD]">
-        <Navbar />
-
-        <section className="py-12 md:py-16 lg:py-20">
+    <div className="relative w-full bg-[#F8F8FD]">
+      <section className="py-12 md:py-16 lg:py-20">
           <Container>
             <div className="mb-8">
               <h1 className="text-[28px] md:text-[36px] font-semibold text-[#25324B]">
@@ -183,7 +186,7 @@ export default function AdminPage() {
                       Short description
                     </label>
                     <textarea
-                      className="file:text-foreground border-[#D6DDEB] text-[#25324B] placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
+                      className="file:text-foreground border-[#D6DDEB] text-[#25324B] placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground bg-white w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
                       rows={2}
                       value={form.short_description}
                       onChange={(e) =>
@@ -193,12 +196,52 @@ export default function AdminPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[14px] font-medium text-[#25324B] mb-1.5">
-                      Main description (optional, HTML)
-                    </label>
+                    <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                      <label className="text-[14px] font-medium text-[#25324B]">
+                        Main description (optional, HTML)
+                      </label>
+                      <Dialog
+                        open={mainDescPreviewOpen}
+                        onOpenChange={setMainDescPreviewOpen}
+                      >
+                        <DialogTrigger asChild>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            className="text-[10px]"
+                          >
+                            <Eye className="size-3" />
+                            Preview
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-[min(90vw,36rem)] max-h-[85vh] flex flex-col bg-white border-[#D6DDEB]">
+                          <DialogHeader>
+                            <DialogTitle className="text-[#25324B] text-left">
+                              Preview – Main description
+                            </DialogTitle>
+                          </DialogHeader>
+                          <div className="overflow-y-auto flex-1 min-h-0 rounded-md bg-[#F8FAFE] p-4 mt-2">
+                            {form.main_description?.trim() ? (
+                              <div
+                                className="prose prose-sm max-w-none text-[15px] leading-relaxed text-[#515B6F] prose-p:my-2 prose-ul:my-2 prose-li:my-0.5"
+                                dangerouslySetInnerHTML={{
+                                  __html: form.main_description.trim(),
+                                }}
+                              />
+                            ) : (
+                              <p className="text-[14px] text-[#7C8493] italic">
+                                Nothing to preview yet. Add some HTML in the
+                                field above and click Preview again.
+                              </p>
+                            )}
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
                     <textarea
-                      className="file:text-foreground border-[#D6DDEB] text-[#25324B] placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
-                      rows={4}
+                      className="bg-white file:text-foreground border-[#D6DDEB] text-[#25324B] placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-white w-full min-w-0 rounded-md border px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive min-h-[120px]"
+                      rows={5}
                       value={form.main_description ?? ""}
                       onChange={(e) =>
                         handleChange("main_description", e.target.value)
@@ -273,10 +316,8 @@ export default function AdminPage() {
               </div>
             </div>
           </Container>
-        </section>
-      </div>
-      <Footer />
-    </>
+      </section>
+    </div>
   );
 }
 

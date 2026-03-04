@@ -39,8 +39,8 @@ export function JobCard({ job }: JobCardProps) {
         <Button
           asChild
           size="sm"
-          variant="outline"
-          className="border-[#4640DE] text-[#4640DE] bg-transparent hover:bg-[#4640DE] hover:text-white"
+          variant="default"
+          className=""
         >
           <Link href={`/jobs/${job.id}`}>View details</Link>
         </Button>

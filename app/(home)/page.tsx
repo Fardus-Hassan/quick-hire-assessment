@@ -1,7 +1,5 @@
 import Intro from "./_components/Intro";
 import Image from "next/image";
-import Footer from "./_components/Footer";
-import Navbar from "./_components/Navbar";
 import CompanyLogos from "./_components/CompanyLogos";
 import ExploreCategories from "./_components/ExploreCategories";
 import CallToAction from "./_components/CallToAction";
@@ -31,8 +29,7 @@ export default function page() {
             className="w-full h-full object-contain opacity-40 mix-blend-multiply"
           />
         </div>
-        
-        <Navbar />
+
         <Intro />
       </div>
       <CompanyLogos />
@@ -40,7 +37,6 @@ export default function page() {
       <CallToAction />
       <FeaturedJobs />
       <LatestJobs />
-      <Footer/>
     </>
   );
 }
