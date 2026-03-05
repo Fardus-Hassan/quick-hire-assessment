@@ -5,6 +5,7 @@ import { AppProviders } from "./providers";
 import { Toaster } from "react-hot-toast";
 import Navbar from "./(home)/_components/Navbar";
 import Footer from "./(home)/_components/Footer";
+import { SmoothScroll } from "@/components/SmoothScroll";
 
 const sans = Poppins({
   variable: "--font-sans",
@@ -49,6 +50,7 @@ export default function RootLayout({
         className={`${sans.variable} ${sans.className} ${fontTitle.variable} ${epilogue.variable} ${redHat.variable} antialiased`}
       >
         <AppProviders>
+          <SmoothScroll />
           <div className="min-h-screen flex flex-col">
             <Navbar />
             <main className="flex-1">{children}</main>
