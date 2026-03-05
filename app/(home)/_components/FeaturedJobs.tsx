@@ -1,5 +1,5 @@
-import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import React from "react";
+import { SectionHeader } from "./SectionHeader";
 
 export default function FeaturedJobs() {
   // Job data array to keep the component clean and easy to map
@@ -110,27 +110,14 @@ export default function FeaturedJobs() {
     <section className="w-full bg-white flex justify-center items-center py-16 lg:py-24">
       <div className="max-w-[1192px] w-full lg:px-0 md:px-8 flex flex-col">
         
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-          <h2 className="text-[40px] md:text-[48px] font-[600] leading-[1.1] tracking-tight">
-            <span className="text-[#25324B]">Featured </span>
-            <span className="text-[#26A4FF]">jobs</span>
-          </h2>
-          
-          <a 
-            href="#" 
-            className="flex items-center justify-end w-full gap-2 text-[#4640DE] text-[16px] font-semibold hover:text-[#3b36be] transition-colors pb-1 md:pb-2"
-          >
-            Show all jobs <ArrowRight size={20} strokeWidth={2} />
-          </a>
-        </div>
+        <SectionHeader leadingText="Featured " accentText="jobs" />
 
         {/* Jobs Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {jobs.map((job) => (
             <div 
               key={job.id} 
-              className="border border-[#D6DDEB] p-6 bg-white hover:shadow-[0px_10px_40px_rgba(46,51,90,0.05)] transition-shadow duration-300 flex flex-col h-full cursor-pointer group"
+              className="border border-[#D6DDEB] p-6 bg-white hover:shadow-[0px_10px_40px_rgba(46,51,90,0.5)] transition-shadow duration-300 flex flex-col h-full cursor-pointer group"
             >
               {/* Top Row: Logo & Badge */}
               <div className="flex justify-between items-start mb-6">
@@ -154,7 +141,7 @@ export default function FeaturedJobs() {
                 {job.company} <span className="mx-1">•</span> {job.location}
               </p>
               
-              <p className="text-[#515B6F] text-[15px] leading-relaxed mb-6 flex-grow">
+              <p className="text-[#515B6F] text-[15px] leading-relaxed mb-6 grow">
                 {job.description}
               </p>
 

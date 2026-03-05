@@ -127,7 +127,7 @@ export default function AdminPage() {
   return (
     <FadeInSection
       className="relative w-full bg-[#F8F8FD]"
-      delay={0.05}
+      delay={0.1}
       animateOnMount
     >
       <section className="py-12 md:py-16 lg:py-20">
@@ -143,7 +143,7 @@ export default function AdminPage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,2fr)] gap-10 lg:gap-12 items-start">
-              <div className="lg:sticky lg:top-6 border border-[#D6DDEB] bg-white p-6 md:p-8 rounded-md shadow-sm lg:self-start">
+              <div className="lg:sticky lg:top-24 border border-[#D6DDEB] bg-white p-6 md:p-8 rounded-md shadow-sm lg:self-start">
                 <h2 className="text-[18px] md:text-[20px] font-semibold text-[#25324B] mb-4">
                   Add new job
                 </h2>

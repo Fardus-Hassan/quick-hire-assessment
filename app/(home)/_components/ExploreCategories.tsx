@@ -1,15 +1,16 @@
-import React from 'react';
-import { 
-  ArrowRight, 
-  PencilRuler, 
-  LineChart, 
-  Megaphone, 
-  WalletCards, 
-  Monitor, 
-  Code, 
-  Briefcase, 
-  Users 
-} from 'lucide-react';
+import React from "react";
+import {
+  ArrowRight,
+  PencilRuler,
+  LineChart,
+  Megaphone,
+  WalletCards,
+  Monitor,
+  Code,
+  Briefcase,
+  Users,
+} from "lucide-react";
+import { SectionHeader } from "./SectionHeader";
 
 export default function ExploreCategories() {
   // Data array for easy rendering and maintenance
@@ -31,24 +32,7 @@ export default function ExploreCategories() {
       {/* Main Container constrained to 1192px */}
       <div className="max-w-[1192px] w-full lg:px-0 md:px-8 flex flex-col">
         
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-          
-          {/* Main Title matching your exact typography parameters */}
-          {/* Note: add 'font-clash' to your tailwind config mapping to 'Clash Display' */}
-          <h2 className="text-[40px] md:text-[48px] font-[600] leading-[1.1] tracking-tight">
-            <span className="text-[#25324B]">Explore by </span>
-            <span className="text-[#26A4FF]">category</span>
-          </h2>
-          
-          {/* Show all jobs link */}
-          <a 
-            href="#" 
-            className="flex items-center md:justify-start justify-end w-full gap-2 text-[#4640DE] text-[16px] font-semibold hover:text-[#3b36be] transition-colors pb-1 md:pb-2"
-          >
-            Show all jobs <ArrowRight size={20} strokeWidth={2} />
-          </a>
-        </div>
+        <SectionHeader leadingText="Explore " accentText="category" />
 
         {/* Categories Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

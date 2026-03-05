@@ -10,7 +10,7 @@ type JobCardProps = {
 export function JobCard({ job }: JobCardProps) {
   return (
     <motion.div
-      className="border border-[#D6DDEB] p-6 bg-white hover:shadow-[0px_10px_40px_rgba(46,51,90,0.05)] transition-shadow duration-300 flex flex-col h-full rounded-md"
+      className="border border-[#D6DDEB] p-6 bg-white hover:shadow-[0px_10px_40px_rgba(46,51,90,0.5)] transition-shadow duration-300 flex flex-col h-full rounded-md"
       whileHover={{ y: -2 }}
       transition={{ duration: 0.2 }}
     >

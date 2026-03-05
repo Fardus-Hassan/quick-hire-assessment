@@ -13,16 +13,16 @@ export default function HeroSection() {
         <div className="lg:col-span-7 flex flex-col justify-center w-full relative z-40 pt-10 lg:pt-20 pb-20">
           
           {/* Main Headline */}
-          <h1 className="text-[#202430] text-[48px] lg:text-[72px] font-bold leading-[1.05] tracking-tight">
+          <h1 className="text-[#202430] text-[48px] lg:text-[72px] font-bold leading-[1.05] tracking-tight relative">
             Discover <br />
             more than <br />
-            <span className="text-[#26A4FF] relative inline-block mt-2">
+            <span className="text-[#26A4FF] inline-block mt-2 relative z-10">
               5000+ Jobs
-              {/* Custom SVG Scribble Underline */}
-              <svg className="absolute w-[115%] -bottom-4 left-0 text-[#26A4FF]" viewBox="0 0 350 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2.5 12.5C40.5 7.5 125.5 -2.5 347.5 7.5M10.5 17.5C65.5 14.5 200.5 6.5 305.5 14.5" stroke="currentColor" strokeWidth="6" strokeLinecap="round"/>
-              </svg>
             </span>
+            {/* Image under the text */}
+            <div className="relative w-full max-w-[450px] h-[33px] mt-2">
+              <Image src="/underline.png" alt="Scribble" fill className="object-left object-contain max-w-[450px] max-h-[33px]" />
+            </div>
           </h1>
 
           {/* Subheadline Paragraph */}
@@ -39,7 +39,7 @@ export default function HeroSection() {
               <input 
                 type="text" 
                 placeholder="Job title or keyword" 
-                className="w-full outline-none text-[#202430] placeholder:text-[#A9B1C0] text-[16px] bg-transparent py-2"
+                className="w-full outline-none text-[#202430] placeholder:text-[#A9B1C0] text-[16px] bg-transparent py-2 border-b"
               />
             </div>
 
@@ -54,7 +54,7 @@ export default function HeroSection() {
                   type="text" 
                   placeholder="Florence, Italy" 
                   // defaultValue="Florence, Italy"
-                  className="w-full outline-none text-[#202430] placeholder:text-[#A9B1C0] text-[16px] bg-transparent py-2"
+                  className="w-full outline-none text-[#202430] placeholder:text-[#A9B1C0] text-[16px] bg-transparent py-2 border-b"
                 />
               </div>
               {/* <ChevronDown className="text-[#202430] cursor-pointer" size={20} /> */}

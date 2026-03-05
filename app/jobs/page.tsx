@@ -5,7 +5,7 @@ export default function JobsPage() {
   return (
     <FadeInSection
       className="relative w-full bg-[#F8F8FD] overflow-hidden"
-      delay={0.05}
+      delay={0.1}
       animateOnMount
     >
       <JobsPageContent />
