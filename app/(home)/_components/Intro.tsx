@@ -7,7 +7,7 @@ export default function HeroSection() {
     <div className="w-full">
       
       {/* 2. Main Hero Content */}
-      <main className="w-full max-w-[1192px] mx-auto lg:px-0 md:px-8 flex-1 flex flex-col lg:grid lg:grid-cols-12 gap-10 items-center relative z-30">
+      <main className="max-w-[1192px] mx-auto  w-[95%] flex-1 flex flex-col lg:grid lg:grid-cols-12 gap-10 items-center relative z-30">
         
         {/* Left Column: Text & Search */}
         <div className="lg:col-span-7 flex flex-col justify-center w-full relative z-40 pt-10 lg:pt-20 pb-20">
@@ -91,7 +91,7 @@ export default function HeroSection() {
 
       {/* Decorative Bottom Diagonal Overlay (White) */}
       <div 
-        className="absolute bottom-0 right-0 z-50 w-[25%] h-[200px] bg-white pointer-events-none lg:block hidden"
+        className="absolute bottom-0 right-0 z-30 w-[25%] h-[200px] bg-white pointer-events-none lg:block hidden"
         style={{ clipPath: 'polygon(100% 0, 0% 100%, 100% 100%)' }}
       ></div>
 
