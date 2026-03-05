@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import {
   ArrowRight,
   PencilRuler,
@@ -36,48 +37,49 @@ export default function ExploreCategories() {
 
         {/* Categories Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          
           {categories.map((cat, index) => {
             const Icon = cat.icon;
+            const href = {
+              pathname: "/jobs",
+              query: { category: cat.name },
+            } as const;
+
             return (
-              // Card Container with 'group' class to trigger child hover effects
-              <div 
-                key={index} 
+              <Link
+                key={index}
+                href={href}
                 className="group border border-[#D6DDEB] md:p-8 p-5 md:min-h-[200px] flex md:flex-col flex-row md:items-start items-center gap-8 bg-white hover:bg-[#4640DE] transition-all duration-300 cursor-pointer"
               >
                 {/* Icon: Blue by default, white on hover */}
                 <div className="text-[#4640DE] group-hover:text-white transition-colors duration-300">
                   <Icon size={44} strokeWidth={1.5} />
                 </div>
-                
+
                 {/* Text Content pushed to the bottom using mt-auto */}
                 <div className="mt-auto flex flex-col gap-3 w-full">
-                  
                   {/* Category Name: Dark by default, white on hover */}
                   <h3 className="text-[#25324B] group-hover:text-white text-[24px] font-bold transition-colors duration-300">
                     {cat.name}
                   </h3>
-                  
+
                   {/* Footer Row: Subtitle + Arrow */}
                   <div className="flex justify-between items-center w-full">
-                    
                     {/* Subtitle: Gray by default, dim white on hover */}
                     <span className="text-[#7C8493] group-hover:text-white/90 text-[16px] transition-colors duration-300">
                       {cat.count} jobs available
                     </span>
-                    
+
                     {/* Arrow: Dark by default, white on hover */}
-                    <ArrowRight 
-                      className="text-[#25324B] group-hover:text-white transition-colors duration-300" 
-                      size={24} 
+                    <ArrowRight
+                      className="text-[#25324B] group-hover:text-white transition-colors duration-300"
+                      size={24}
                       strokeWidth={1.5}
                     />
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
-          
         </div>
 
       </div>

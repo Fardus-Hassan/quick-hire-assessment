@@ -23,9 +23,14 @@ export default function JobsPageContent() {
   const searchParams = useSearchParams();
   const initialSearch = searchParams.get("search") ?? "";
   const initialLocation = searchParams.get("location") ?? "";
+  const rawCategory = searchParams.get("category");
+  const initialCategory =
+    rawCategory && JOB_CATEGORIES.includes(rawCategory as (typeof JOB_CATEGORIES)[number])
+      ? rawCategory
+      : "all";
 
   const [search, setSearch] = useState(initialSearch);
-  const [category, setCategory] = useState<string>("all");
+  const [category, setCategory] = useState<string>(initialCategory);
   const [location, setLocation] = useState<string>(initialLocation);
   const [jobsPage, setJobsPage] = useState(1);
 
