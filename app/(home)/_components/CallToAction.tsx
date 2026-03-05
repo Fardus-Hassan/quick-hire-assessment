@@ -22,7 +22,7 @@ const CallToAction = () => {
         ></div>
         
         {/* Content Wrapper: Added px-6 to keep content away from edges */}
-        <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-stretch justify-between w-full min-h-[480px] pt-16 lg:pt-0 px-6 md:px-12 lg:px-20 gap-8 lg:gap-12">
+        <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-stretch justify-between min-h-[480px] pt-16 lg:pt-0 w-[95%] mx-auto gap-8 lg:gap-12">
           
           {/* Left Column: Text & CTA */}
           {/* Added items-center and text-center for mobile layout */}
@@ -43,14 +43,15 @@ const CallToAction = () => {
             
           </div>
 
-          {/* Right Column: Dashboard Mockup Image */}  
-          <div className="w-full lg:w-[55%] flex justify-center lg:justify-end items-end relative pb-12 lg:pb-0">
-            <div className="relative w-full max-w-[564px] aspect-[564/346] animate-in fade-in slide-in-from-bottom-6 duration-1000">
-              <Image 
-                src="/3.1 Dashboard Company.png" 
-                alt="QuickHire Dashboard Interface" 
-                fill
-                className="object-cover"
+          {/* Right Column: Dashboard Mockup Image */}
+          <div className="w-full flex justify-center lg:justify-end items-end relative pb-12 lg:pb-0">
+            <div className="relative w-full max-w-[664px] max-h-[446px] min-h-[200px] animate-in fade-in slide-in-from-bottom-6 duration-1000">
+              <Image
+                src="/3.1 Dashboard Company.png"
+                alt="QuickHire Dashboard Interface"
+                width={564}
+                height={346}
+                className="object-contain w-full h-auto rounded-xl shadow-2xl"
                 priority
               />
             </div>

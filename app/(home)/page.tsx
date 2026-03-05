@@ -10,7 +10,7 @@ import LatestJobs from "./_components/LatestJobs";
 export default function page() {
   return (
     <>
-      <FadeInSection className="relative bg-[#F8F8FD] overflow-hidden" delay={0}>
+      <FadeInSection className="relative bg-[#F8F8FD] overflow-hidden" delay={0.05} animateOnMount>
         {/* Background Geometric Pattern */}
         <div
           className="absolute z-0 pointer-events-none hidden lg:block overflow-visible md:w-[860px] w-[500px] h-[794px] md:left-[800px] left-[10] top-[-40px]"
@@ -28,16 +28,16 @@ export default function page() {
       <FadeInSection className="w-[95%] mx-auto" delay={0.05}>
         <CompanyLogos />
       </FadeInSection>
-      <FadeInSection className="w-[95%] mx-auto" delay={0.1}>
+      <FadeInSection className="w-[95%] mx-auto" delay={0.05}>
         <ExploreCategories />
       </FadeInSection>
-      <FadeInSection delay={0.1}>
+      <FadeInSection delay={0.05}>
         <CallToAction />
       </FadeInSection>
-      <FadeInSection className="w-[95%] mx-auto" delay={0.15}>
+        <FadeInSection className="w-[95%] mx-auto" delay={0.05}>
         <FeaturedJobs />
       </FadeInSection>
-      <FadeInSection delay={0.15}>
+      <FadeInSection delay={0.05}>
         <LatestJobs />
       </FadeInSection>
     </>

@@ -119,7 +119,7 @@ export default function FeaturedJobs() {
           
           <a 
             href="#" 
-            className="flex items-center gap-2 text-[#4640DE] text-[16px] font-semibold hover:text-[#3b36be] transition-colors pb-1 md:pb-2"
+            className="flex items-center justify-end w-full gap-2 text-[#4640DE] text-[16px] font-semibold hover:text-[#3b36be] transition-colors pb-1 md:pb-2"
           >
             Show all jobs <ArrowRight size={20} strokeWidth={2} />
           </a>

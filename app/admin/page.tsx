@@ -30,6 +30,7 @@ import {
   useGetJobsQuery,
 } from "@/lib/api/jobsApi";
 import { JOB_CATEGORIES } from "@/lib/constants";
+import { FadeInSection } from "@/components/FadeInSection";
 
 type JobForm = Omit<Job, "id" | "created_at">;
 
@@ -124,7 +125,11 @@ export default function AdminPage() {
   const totalListingsPages = pagination?.totalPages ?? 1;
 
   return (
-    <div className="relative w-full bg-[#F8F8FD]">
+    <FadeInSection
+      className="relative w-full bg-[#F8F8FD]"
+      delay={0.05}
+      animateOnMount
+    >
       <section className="py-12 md:py-16 lg:py-20">
           <Container>
             <div className="mb-8">
@@ -389,7 +394,7 @@ export default function AdminPage() {
             </div>
           </Container>
       </section>
-    </div>
+    </FadeInSection>
   );
 }
 

@@ -44,7 +44,7 @@ export default function ExploreCategories() {
           {/* Show all jobs link */}
           <a 
             href="#" 
-            className="flex items-center gap-2 text-[#4640DE] text-[16px] font-semibold hover:text-[#3b36be] transition-colors pb-1 md:pb-2"
+            className="flex items-center md:justify-start justify-end w-full gap-2 text-[#4640DE] text-[16px] font-semibold hover:text-[#3b36be] transition-colors pb-1 md:pb-2"
           >
             Show all jobs <ArrowRight size={20} strokeWidth={2} />
           </a>
@@ -59,7 +59,7 @@ export default function ExploreCategories() {
               // Card Container with 'group' class to trigger child hover effects
               <div 
                 key={index} 
-                className="group border border-[#D6DDEB] p-8 min-h-[250px] flex flex-col bg-white hover:bg-[#4640DE] transition-all duration-300 cursor-pointer"
+                className="group border border-[#D6DDEB] md:p-8 p-5 md:min-h-[200px] flex md:flex-col flex-row md:items-start items-center gap-8 bg-white hover:bg-[#4640DE] transition-all duration-300 cursor-pointer"
               >
                 {/* Icon: Blue by default, white on hover */}
                 <div className="text-[#4640DE] group-hover:text-white transition-colors duration-300">
@@ -67,7 +67,7 @@ export default function ExploreCategories() {
                 </div>
                 
                 {/* Text Content pushed to the bottom using mt-auto */}
-                <div className="mt-auto flex flex-col gap-3 pt-8">
+                <div className="mt-auto flex flex-col gap-3 w-full">
                   
                   {/* Category Name: Dark by default, white on hover */}
                   <h3 className="text-[#25324B] group-hover:text-white text-[24px] font-bold transition-colors duration-300">
@@ -75,7 +75,7 @@ export default function ExploreCategories() {
                   </h3>
                   
                   {/* Footer Row: Subtitle + Arrow */}
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center w-full">
                     
                     {/* Subtitle: Gray by default, dim white on hover */}
                     <span className="text-[#7C8493] group-hover:text-white/90 text-[16px] transition-colors duration-300">
