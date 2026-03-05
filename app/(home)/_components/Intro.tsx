@@ -31,7 +31,7 @@ export default function HeroSection() {
           </p>
 
           {/* Search Box Form */}
-          <div className="mt-10 bg-white p-4 shadow-[0px_20px_60px_rgba(46,51,90,0.08)] w-full max-w-[800px] flex flex-col lg:flex-row gap-4 lg:gap-0 items-center relative z-50 border border-[#D6DDEB]/50">
+          <div className="mt-10 bg-white p-4 shadow-[0px_20px_60px_rgba(46,51,90,0.08)] w-full max-w-full flex flex-col lg:flex-row gap-4 lg:gap-0 items-center relative z-50 border border-[#D6DDEB]/50">
             
             {/* Job Title Input */}
             <div className="flex-[1.2] flex items-center gap-3 px-4 w-full">
@@ -53,11 +53,11 @@ export default function HeroSection() {
                 <input 
                   type="text" 
                   placeholder="Florence, Italy" 
-                  defaultValue="Florence, Italy"
+                  // defaultValue="Florence, Italy"
                   className="w-full outline-none text-[#202430] placeholder:text-[#A9B1C0] text-[16px] bg-transparent py-2"
                 />
               </div>
-              <ChevronDown className="text-[#202430] cursor-pointer" size={20} />
+              {/* <ChevronDown className="text-[#202430] cursor-pointer" size={20} /> */}
             </div>
 
             {/* Submit Button */}
@@ -73,17 +73,17 @@ export default function HeroSection() {
         </div>
 
         {/* Right Column: Images */}
-        <div className="lg:col-span-5 hidden lg:flex relative w-full h-[600px] lg:h-[750px] justify-center items-end z-20">
+        <div className="lg:col-span-5 hidden lg:flex relative w-full justify-center items-end z-20">
           
           {/* Profile Image */}
-          <div className="relative w-full h-full flex justify-end items-end z-10 translate-x-12">
+          <div className="relative w-full h-full flex justify-end items-end z-10 translate-x-[50px]">
             <Image
               src="/Pic.png" 
               alt="Smiling professional" 
-              width={1000}
-              height={1000}
+              width={2000}
+              height={2000}
               priority
-              className="w-auto h-[92%] object-contain drop-shadow-2xl"
+              className="object-cover h-[700px] min-w-[500px] mt-5"
             />
           </div>
         </div>
@@ -91,7 +91,7 @@ export default function HeroSection() {
 
       {/* Decorative Bottom Diagonal Overlay (White) */}
       <div 
-        className="absolute bottom-0 right-0 w-[45%] h-[250px] lg:h-[350px] bg-white z-10 pointer-events-none"
+        className="absolute bottom-0 right-0 z-50 w-[25%] h-[200px] bg-white pointer-events-none lg:block hidden"
         style={{ clipPath: 'polygon(100% 0, 0% 100%, 100% 100%)' }}
       ></div>
 
