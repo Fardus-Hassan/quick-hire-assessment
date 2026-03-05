@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const LERP = 0.08;
 const MIN_DELTA = 0.5;
@@ -21,6 +22,8 @@ function findScrollableParent(el: Element | null): Element | null {
 }
 
 export function SmoothScroll() {
+  const pathname = usePathname();
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -69,7 +72,8 @@ export function SmoothScroll() {
       window.removeEventListener("scroll", onScroll);
       if (rafId != null) cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }
+
