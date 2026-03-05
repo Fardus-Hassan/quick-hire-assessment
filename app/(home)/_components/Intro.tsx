@@ -1,7 +1,24 @@
-import { Search, MapPin, ChevronDown } from 'lucide-react';
-import Image from 'next/image';
+"use client";
+
+import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { Search, MapPin } from "lucide-react";
+import Image from "next/image";
 
 export default function HeroSection() {
+  const router = useRouter();
+  const [title, setTitle] = useState("");
+  const [location, setLocation] = useState("");
+
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (title.trim()) params.set("search", title.trim());
+    if (location.trim()) params.set("location", location.trim());
+    const query = params.toString();
+    router.push(query ? `/jobs?${query}` : "/jobs");
+  }
+
   return (
     // Outer wrapper - now inheriting background from parent
     <div className="w-full">
@@ -31,7 +48,10 @@ export default function HeroSection() {
           </p>
 
           {/* Search Box Form */}
-          <div className="mt-10 bg-white p-4 shadow-[0px_20px_60px_rgba(46,51,90,0.08)] w-full max-w-full flex flex-col lg:flex-row gap-4 lg:gap-0 items-center relative z-50 border border-[#D6DDEB]/50">
+          <form
+            onSubmit={handleSubmit}
+            className="mt-10 bg-white p-4 shadow-[0px_20px_60px_rgba(46,51,90,0.08)] w-full max-w-full flex flex-col lg:flex-row gap-4 lg:gap-0 items-center relative z-50 border border-[#D6DDEB]/50"
+          >
             
             {/* Job Title Input */}
             <div className="flex-[1.2] flex items-center gap-3 px-4 w-full">
@@ -40,6 +60,8 @@ export default function HeroSection() {
                 type="text" 
                 placeholder="Job title or keyword" 
                 className="w-full outline-none text-[#202430] placeholder:text-[#A9B1C0] text-[16px] bg-transparent py-2 border-b"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
 
@@ -50,21 +72,25 @@ export default function HeroSection() {
             <div className="flex-1 flex items-center justify-between px-4 w-full border-t lg:border-t-0 border-[#D6DDEB] pt-4 lg:pt-0">
               <div className="flex items-center gap-3 w-full">
                 <MapPin className="text-[#A9B1C0]" size={24} />
-                <input 
-                  type="text" 
-                  placeholder="Florence, Italy" 
-                  // defaultValue="Florence, Italy"
+                <input
+                  type="text"
+                  placeholder="Florence, Italy"
                   className="w-full outline-none text-[#202430] placeholder:text-[#A9B1C0] text-[16px] bg-transparent py-2 border-b"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
                 />
               </div>
               {/* <ChevronDown className="text-[#202430] cursor-pointer" size={20} /> */}
             </div>
 
             {/* Submit Button */}
-            <button className="bg-[#4640DE] hover:bg-[#3b36be] transition-colors text-white font-semibold px-10 py-4 w-full lg:w-auto mt-2 lg:mt-0 whitespace-nowrap">
+            <button
+              type="submit"
+              className="bg-[#4640DE] hover:bg-[#3b36be] transition-colors text-white font-semibold px-10 py-4 w-full lg:w-auto mt-2 lg:mt-0 whitespace-nowrap"
+            >
               Search my job
             </button>
-          </div>
+          </form>
 
           {/* Popular Tags */}
           <p className="mt-6 text-[#515B6F] text-[16px]">

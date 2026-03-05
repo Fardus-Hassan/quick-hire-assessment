@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 
 import Container from "@/components/Container";
@@ -19,9 +20,13 @@ import { useGetJobsQuery } from "@/lib/api/jobsApi";
 import { JOB_CATEGORIES } from "@/lib/constants";
 
 export default function JobsPageContent() {
-  const [search, setSearch] = useState("");
+  const searchParams = useSearchParams();
+  const initialSearch = searchParams.get("search") ?? "";
+  const initialLocation = searchParams.get("location") ?? "";
+
+  const [search, setSearch] = useState(initialSearch);
   const [category, setCategory] = useState<string>("all");
-  const [location, setLocation] = useState<string>("all");
+  const [location, setLocation] = useState<string>(initialLocation);
   const [jobsPage, setJobsPage] = useState(1);
 
   const effectiveCategory = category === "all" ? "" : category;
