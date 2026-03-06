@@ -1,104 +1,97 @@
-import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import React from "react";
+import Image from "next/image";
+import { SectionHeader } from "./SectionHeader";
 
 export default function LatestJobs() {
   // Job data array reflecting the items in your design
   const jobs = [
     {
       id: 1,
-      logo: 'N', // Nomad placeholder
-      logoBg: 'bg-[#56CDAD] text-white',
-      title: 'Social Media Assistant',
-      company: 'Nomad',
-      location: 'Paris, France',
+      logoSrc: "/job1.png",
+      title: "Social Media Assistant",
+      company: "Nomad",
+      location: "Paris, France",
     },
     {
       id: 2,
-      logo: 'N', // Netlify placeholder
-      logoBg: 'bg-[#20C6B6] text-white',
-      title: 'Social Media Assistant',
-      company: 'Netlify',
-      location: 'Paris, France',
+      logoSrc: "/job2.png",
+      title: "Social Media Assistant",
+      company: "Netlify",
+      location: "Paris, France",
     },
     {
       id: 3,
-      logo: 'D', // Dropbox placeholder
-      logoBg: 'bg-[#0061FF] text-white',
-      title: 'Brand Designer',
-      company: 'Dropbox',
-      location: 'San Fransisco, USA',
+      logoSrc: "/job3.png",
+      title: "Brand Designer",
+      company: "Dropbox",
+      location: "San Fransisco, USA",
     },
     {
       id: 4,
-      logo: 'M', // Maze placeholder
-      logoBg: 'bg-[#0055FF] text-white',
-      title: 'Brand Designer',
-      company: 'Maze',
-      location: 'San Fransisco, USA',
+      logoSrc: "/job4.jpg",
+      title: "Brand Designer",
+      company: "Maze",
+      location: "San Fransisco, USA",
     },
     {
       id: 5,
-      logo: 'T', // Terraform placeholder
-      logoBg: 'bg-[#5C4EE5] text-white',
-      title: 'Interactive Developer',
-      company: 'Terraform',
-      location: 'Hamburg, Germany',
+      logoSrc: "/job5.png",
+      title: "Interactive Developer",
+      company: "Terraform",
+      location: "Hamburg, Germany",
     },
     {
       id: 6,
-      logo: 'U', // Udacity placeholder
-      logoBg: 'bg-[#02B3E4] text-white',
-      title: 'Interactive Developer',
-      company: 'Udacity',
-      location: 'Hamburg, Germany',
+      logoSrc: "/job6.png",
+      title: "Interactive Developer",
+      company: "Udacity",
+      location: "Hamburg, Germany",
     },
     {
       id: 7,
-      logo: 'P', // Packer placeholder
-      logoBg: 'bg-[#F24C53] text-white',
-      title: 'HR Manager',
-      company: 'Packer',
-      location: 'Lucern, Switzerland',
+      logoSrc: "/job7.png",
+      title: "HR Manager",
+      company: "Packer",
+      location: "Lucern, Switzerland",
     },
     {
       id: 8,
-      logo: 'W', // Webflow placeholder
-      logoBg: 'bg-[#4353FF] text-white',
-      title: 'HR Manager',
-      company: 'Webflow',
-      location: 'Lucern, Switzerland',
+      logoSrc: "/job8.png",
+      title: "HR Manager",
+      company: "Webflow",
+      location: "Lucern, Switzerland",
     },
   ];
 
   return (
-    <section className="w-full bg-[#F8FAFE] flex justify-center items-center py-16 lg:py-24 relative overflow-hidden">
-      <div className="max-w-[1192px] w-full lg:px-0 md:px-8 flex flex-col relative z-10">
+    <section className="w-full bg-[#F8FAFE] flex justify-center items-center py-24 relative overflow-hidden">
+      {/* Angled white background – top left (like reference) */}
+      <div
+        className="absolute top-0 left-0 lg:w-[200px] w-[150px] lg:min-h-[100px] min-h-[70px] bg-white pointer-events-none z-0"
+        style={{
+          clipPath: "polygon(0 0, 100% 0, 0% 100%, 0 100%)",
+        }}
+      />
+      <div className="max-w-[1192px] w-[95%] mx-auto flex flex-col relative z-10">
         
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-          <h2 className="text-[40px] md:text-[48px] font-[600] leading-[1.1] tracking-tight">
-            <span className="text-[#25324B]">Latest </span>
-            <span className="text-[#26A4FF]">jobs open</span>
-          </h2>
-          
-          <a 
-            href="#" 
-            className="flex items-center gap-2 text-[#4640DE] text-[16px] font-semibold hover:text-[#3b36be] transition-colors pb-1 md:pb-2"
-          >
-            Show all jobs <ArrowRight size={20} strokeWidth={2} />
-          </a>
-        </div>
+        <SectionHeader leadingText="Latest " accentText="jobs open" />
 
         {/* Jobs Grid (2 Columns) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {jobs.map((job) => (
-            <div 
+            <div
               key={job.id} 
-              className="bg-white border border-[#D6DDEB] p-6 md:p-8 hover:shadow-[0px_10px_40px_rgba(46,51,90,0.05)] hover:border-[#4640DE]/50 transition-all duration-300 flex items-start gap-6 cursor-pointer group"
+              className="bg-white border border-[#D6DDEB] p-6 md:p-8 hover:shadow-[0px_10px_40px_rgba(46,51,90,0.5)] hover:border-[#4640DE]/50 transition-all duration-300 flex items-start gap-6 cursor-pointer group"
             >
-              {/* Logo Placeholder */}
-              <div className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-2xl shadow-sm ${job.logoBg}`}>
-                {job.logo}
+              {/* Company logo */}
+              <div className="w-[64px] h-[64px]">
+                <Image
+                  src={job.logoSrc}
+                  alt={`${job.company} logo`}
+                  width={40}
+                  height={40}
+                  className="w-[64px] h-[64px] object-contain"
+                />
               </div>
 
               {/* Job Details */}

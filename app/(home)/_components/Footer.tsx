@@ -1,12 +1,21 @@
-import React from 'react';
-import { Facebook, Instagram, Dribbble, Linkedin, Twitter } from 'lucide-react';
-import Image from 'next/image';
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
+import { Facebook, Instagram, Dribbble, Linkedin, Twitter } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#202430] w-full flex justify-center items-center">
+    <motion.footer
+      className="bg-[#202430] w-full flex justify-center items-center"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+    >
       {/* Main container */}
-      <div className="max-w-[1192px] w-full lg:px-0 md:px-8 py-12 flex flex-col justify-center">
+      <div className="max-w-[1192px] w-[95%] mx-auto py-12 flex flex-col justify-center">
         
         {/* Top Content Area */}
         <div className="flex flex-col gap-10 lg:grid lg:grid-cols-12 lg:gap-8 pt-4">
@@ -97,7 +106,7 @@ export default function Footer() {
         </div>
 
       </div>
-    </footer>
+    </motion.footer>
   );
 }
 

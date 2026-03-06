@@ -1,42 +1,45 @@
-import Intro from "./_components/Intro";
 import Image from "next/image";
+import { FadeInSection } from "@/components/FadeInSection";
+import Intro from "./_components/Intro";
 import CompanyLogos from "./_components/CompanyLogos";
 import ExploreCategories from "./_components/ExploreCategories";
 import CallToAction from "./_components/CallToAction";
 import FeaturedJobs from "./_components/FeaturedJobs";
 import LatestJobs from "./_components/LatestJobs";
 
-
 export default function page() {
   return (
     <>
-      <div className="relative w-full bg-[#F8F8FD] overflow-hidden">
-        {/* Background Geometric Pattern - Exact Figma Specs: 860px x 794px, Left: 580px */}
-        <div 
-          className="absolute z-0 pointer-events-none hidden lg:block overflow-visible"
-          style={{ 
-            width: '860px', 
-            height: '794px', 
-            left: '800px', 
-            top: '-40px',
-          }}
+      <FadeInSection className="relative bg-[#F8F8FD] overflow-hidden" delay={0.1} animateOnMount>
+        {/* Background Geometric Pattern */}
+        <div
+          className="absolute z-0 pointer-events-none hidden lg:block overflow-visible md:w-[860px] w-[500px] h-[794px] md:left-[800px] left-[10] top-[-40px]"
         >
           <Image
-            src="/Pattern.svg" 
-            alt="Geometric pattern background" 
+            src="/Pattern.svg"
+            alt="Geometric pattern background"
             width={860}
             height={794}
-            className="w-full h-full object-contain opacity-40 mix-blend-multiply"
+            className="w-full h-full object-contain"
           />
         </div>
-
         <Intro />
-      </div>
-      <CompanyLogos />
-      <ExploreCategories />
-      <CallToAction />
-      <FeaturedJobs />
-      <LatestJobs />
+      </FadeInSection>
+      <FadeInSection className="w-[95%] mx-auto" delay={0.1}>
+        <CompanyLogos />
+      </FadeInSection>
+      <FadeInSection className="w-[95%] mx-auto" delay={0.1}>
+        <ExploreCategories />
+      </FadeInSection>
+      <FadeInSection delay={0.1}>
+        <CallToAction />
+      </FadeInSection>
+        <FadeInSection className="w-[95%] mx-auto" delay={0.1}>
+        <FeaturedJobs />
+      </FadeInSection>
+      <FadeInSection delay={0.1}>
+        <LatestJobs />
+      </FadeInSection>
     </>
   );
 }

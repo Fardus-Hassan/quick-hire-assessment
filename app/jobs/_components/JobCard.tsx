@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Job } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 
@@ -8,7 +9,11 @@ type JobCardProps = {
 
 export function JobCard({ job }: JobCardProps) {
   return (
-    <div className="border border-[#D6DDEB] p-6 bg-white hover:shadow-[0px_10px_40px_rgba(46,51,90,0.05)] transition-shadow duration-300 flex flex-col h-full rounded-md">
+    <motion.div
+      className="border border-[#D6DDEB] p-6 bg-white hover:shadow-[0px_10px_40px_rgba(46,51,90,0.5)] transition-shadow duration-300 flex flex-col h-full rounded-md"
+      whileHover={{ y: -2 }}
+      transition={{ duration: 0.2 }}
+    >
       <div className="flex justify-between items-start mb-4">
         <div>
           <h3 className="text-[#25324B] text-[20px] font-bold mb-1">
@@ -45,7 +50,7 @@ export function JobCard({ job }: JobCardProps) {
           <Link href={`/jobs/${job.id}`}>View details</Link>
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

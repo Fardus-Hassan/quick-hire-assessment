@@ -4,6 +4,7 @@ import { use } from "react";
 import Container from "@/components/Container";
 import { ApplyForm } from "../_components/ApplyForm";
 import { useGetJobQuery } from "@/lib/api/jobsApi";
+import { FadeInSection } from "@/components/FadeInSection";
 
 type JobDetailPageProps = {
   params: Promise<{ id: string }>;
@@ -15,7 +16,8 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
 
   if (isLoading && !job) {
     return (
-      <section className="w-full bg-[#F8F8FD] py-24">
+      <FadeInSection className="bg-[#F8F8FD]" delay={0.1}>
+              <section className="w-full bg-[#F8F8FD] py-24">
         <Container>
           <div className="max-w-2xl space-y-4">
             <div className="h-4 w-24 bg-[#E5E7EB] rounded-md animate-pulse" />
@@ -30,6 +32,7 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
           </div>
         </Container>
       </section>
+      </FadeInSection>
     );
   }
 
@@ -50,7 +53,8 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
   }
 
   return (
-    <div className="relative w-full bg-[#F8F8FD] overflow-hidden">
+    <FadeInSection className="" delay={0.1}>
+    <div className="relative w-full bg-[#F8F8FD]">
       <section className="py-12 md:py-16 lg:py-20">
           <Container>
             <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)] gap-10 lg:gap-12">
@@ -99,13 +103,14 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
                 </div>
               </div>
 
-              <div>
+              <div className="lg:sticky lg:top-24 lg:self-start">
                 <ApplyForm jobId={job.id} jobTitle={job.title} />
               </div>
             </div>
           </Container>
       </section>
     </div>
+    </FadeInSection>
   );
 }
 

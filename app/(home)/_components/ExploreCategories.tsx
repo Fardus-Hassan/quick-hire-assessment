@@ -1,15 +1,17 @@
-import React from 'react';
-import { 
-  ArrowRight, 
-  PencilRuler, 
-  LineChart, 
-  Megaphone, 
-  WalletCards, 
-  Monitor, 
-  Code, 
-  Briefcase, 
-  Users 
-} from 'lucide-react';
+import React from "react";
+import Link from "next/link";
+import {
+  ArrowRight,
+  PencilRuler,
+  LineChart,
+  Megaphone,
+  WalletCards,
+  Monitor,
+  Code,
+  Briefcase,
+  Users,
+} from "lucide-react";
+import { SectionHeader } from "./SectionHeader";
 
 export default function ExploreCategories() {
   // Data array for easy rendering and maintenance
@@ -31,69 +33,53 @@ export default function ExploreCategories() {
       {/* Main Container constrained to 1192px */}
       <div className="max-w-[1192px] w-full lg:px-0 md:px-8 flex flex-col">
         
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-          
-          {/* Main Title matching your exact typography parameters */}
-          {/* Note: add 'font-clash' to your tailwind config mapping to 'Clash Display' */}
-          <h2 className="text-[40px] md:text-[48px] font-[600] leading-[1.1] tracking-tight">
-            <span className="text-[#25324B]">Explore by </span>
-            <span className="text-[#26A4FF]">category</span>
-          </h2>
-          
-          {/* Show all jobs link */}
-          <a 
-            href="#" 
-            className="flex items-center gap-2 text-[#4640DE] text-[16px] font-semibold hover:text-[#3b36be] transition-colors pb-1 md:pb-2"
-          >
-            Show all jobs <ArrowRight size={20} strokeWidth={2} />
-          </a>
-        </div>
+        <SectionHeader leadingText="Explore " accentText="category" />
 
         {/* Categories Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          
           {categories.map((cat, index) => {
             const Icon = cat.icon;
+            const href = {
+              pathname: "/jobs",
+              query: { category: cat.name },
+            } as const;
+
             return (
-              // Card Container with 'group' class to trigger child hover effects
-              <div 
-                key={index} 
-                className="group border border-[#D6DDEB] p-8 min-h-[250px] flex flex-col bg-white hover:bg-[#4640DE] transition-all duration-300 cursor-pointer"
+              <Link
+                key={index}
+                href={href}
+                className="group border border-[#D6DDEB] md:p-8 p-5 md:min-h-[200px] flex md:flex-col flex-row md:items-start items-center gap-8 bg-white hover:bg-[#4640DE] transition-all duration-300 cursor-pointer"
               >
                 {/* Icon: Blue by default, white on hover */}
                 <div className="text-[#4640DE] group-hover:text-white transition-colors duration-300">
                   <Icon size={44} strokeWidth={1.5} />
                 </div>
-                
+
                 {/* Text Content pushed to the bottom using mt-auto */}
-                <div className="mt-auto flex flex-col gap-3 pt-8">
-                  
+                <div className="mt-auto flex flex-col gap-3 w-full">
                   {/* Category Name: Dark by default, white on hover */}
                   <h3 className="text-[#25324B] group-hover:text-white text-[24px] font-bold transition-colors duration-300">
                     {cat.name}
                   </h3>
-                  
+
                   {/* Footer Row: Subtitle + Arrow */}
-                  <div className="flex justify-between items-center">
-                    
+                  <div className="flex justify-between items-center w-full">
                     {/* Subtitle: Gray by default, dim white on hover */}
                     <span className="text-[#7C8493] group-hover:text-white/90 text-[16px] transition-colors duration-300">
                       {cat.count} jobs available
                     </span>
-                    
+
                     {/* Arrow: Dark by default, white on hover */}
-                    <ArrowRight 
-                      className="text-[#25324B] group-hover:text-white transition-colors duration-300" 
-                      size={24} 
+                    <ArrowRight
+                      className="text-[#25324B] group-hover:text-white transition-colors duration-300"
+                      size={24}
                       strokeWidth={1.5}
                     />
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
-          
         </div>
 
       </div>
