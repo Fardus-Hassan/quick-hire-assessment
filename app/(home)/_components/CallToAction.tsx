@@ -51,7 +51,7 @@ const CallToAction = () => {
                 alt="QuickHire Dashboard Interface"
                 width={564}
                 height={346}
-                className="object-contain w-full h-auto rounded-t-xl"
+                className="object-contain w-full h-auto lg:rounded-t-xl rounded-xl"
                 priority
               />
             </div>
