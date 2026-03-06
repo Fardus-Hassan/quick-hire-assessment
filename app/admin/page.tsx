@@ -3,11 +3,22 @@
 import { useMemo, useState } from "react";
 import { Trash2, Plus, Eye } from "lucide-react";
 import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import Container from "@/components/Container";
 import { Pagination } from "@/components/Pagination";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import {
   Dialog,
   DialogClose,
@@ -32,20 +43,25 @@ import {
 import { JOB_CATEGORIES } from "@/lib/constants";
 import { FadeInSection } from "@/components/FadeInSection";
 
-type JobForm = Omit<Job, "id" | "created_at">;
+const jobSchema = z.object({
+  title: z.string().min(2, "Job title is required"),
+  company: z.string().min(2, "Company is required"),
+  location: z.string().min(2, "Location is required"),
+  category: z.string().min(1, "Category is required"),
+  short_description: z
+    .string()
+    .min(10, "Short description should be at least 10 characters"),
+  main_description: z
+    .string()
+    .min(10, "Main description should be at least 10 characters"),
+});
+
+type JobFormValues = z.infer<typeof jobSchema>;
 
 export default function AdminPage() {
   const [listingsPage, setListingsPage] = useState(1);
   const [mainDescPreviewOpen, setMainDescPreviewOpen] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
-  const [form, setForm] = useState<JobForm>({
-    title: "",
-    company: "",
-    location: "",
-    category: "",
-    short_description: "",
-    main_description: "",
-  });
 
   const { data, isLoading } = useGetJobsQuery({
     page: listingsPage,
@@ -56,36 +72,31 @@ export default function AdminPage() {
   const [createJob, { isLoading: isCreating }] = useCreateJobMutation();
   const [deleteJob] = useDeleteJobMutation();
 
-  const canSubmit = useMemo(
-    () =>
-      form.title.trim().length > 0 &&
-      form.company.trim().length > 0 &&
-      form.location.trim().length > 0 &&
-      form.category.trim().length > 0 &&
-      form.short_description.trim().length > 0,
-    [form],
-  );
+  const jobForm = useForm<JobFormValues>({
+    resolver: zodResolver(jobSchema),
+    mode: "onChange",
+    defaultValues: {
+      title: "",
+      company: "",
+      location: "",
+      category: "",
+      short_description: "",
+      main_description: "",
+    },
+  });
 
-  function handleChange(
-    field: keyof JobForm,
-    value: string,
-  ) {
-    setForm((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  }
+  const mainDescriptionValue = jobForm.watch("main_description");
 
-  async function handleAddJob() {
-    if (!canSubmit || isCreating) return;
+  async function handleAddJob(values: JobFormValues) {
+    if (isCreating) return;
 
     const payload: Omit<Job, "id"> = {
-      title: form.title.trim(),
-      company: form.company.trim(),
-      location: form.location.trim(),
-      category: form.category.trim(),
-      short_description: form.short_description.trim(),
-      main_description: form.main_description?.trim() || undefined,
+      title: values.title.trim(),
+      company: values.company.trim(),
+      location: values.location.trim(),
+      category: values.category.trim(),
+      short_description: values.short_description.trim(),
+      main_description: values.main_description.trim(),
       created_at: new Date().toISOString(),
     };
 
@@ -93,14 +104,7 @@ export default function AdminPage() {
       await createJob(payload).unwrap();
       toast.success("Job created successfully");
       setListingsPage(1);
-      setForm({
-        title: "",
-        company: "",
-        location: "",
-        category: "",
-        short_description: "",
-        main_description: "",
-      });
+      jobForm.reset();
     } catch (error) {
       const message =
         (error as Error | undefined)?.message ?? "Failed to create job";
@@ -148,149 +152,195 @@ export default function AdminPage() {
                   Add new job
                 </h2>
 
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-[14px] font-medium text-[#25324B] mb-1.5">
-                      Job title
-                    </label>
-                    <Input
-                      value={form.title}
-                      onChange={(e) => handleChange("title", e.target.value)}
-                      placeholder="e.g. Senior Frontend Engineer"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[14px] font-medium text-[#25324B] mb-1.5">
-                      Company
-                    </label>
-                    <Input
-                      value={form.company}
-                      onChange={(e) => handleChange("company", e.target.value)}
-                      placeholder="e.g. QuickHire"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-[14px] font-medium text-[#25324B] mb-1.5">
-                        Location
-                      </label>
-                    <Input
-                      value={form.location}
-                      onChange={(e) =>
-                        handleChange("location", e.target.value)
-                      }
-                      placeholder="e.g. Dhaka, Bangladesh"
-                    />
-                    </div>
-                    <div>
-                      <label className="block text-[14px] font-medium text-[#25324B] mb-1.5">
-                        Category
-                      </label>
-                      <Select
-                        value={form.category}
-                        onValueChange={(value) => handleChange("category", value)}
-                      >
-                        <SelectTrigger className="w-full bg-white border-[#D6DDEB] text-[#25324B]">
-                          <SelectValue placeholder="Select category" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {JOB_CATEGORIES.map((cat) => (
-                            <SelectItem key={cat} value={cat}>
-                              {cat}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-[14px] font-medium text-[#25324B] mb-1.5">
-                      Short description
-                    </label>
-                    <textarea
-                      className="file:text-foreground border-[#D6DDEB] text-[#25324B] placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground bg-white w-full min-w-0 rounded-md border px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
-                      rows={2}
-                      value={form.short_description}
-                      onChange={(e) =>
-                        handleChange("short_description", e.target.value)
-                      }
-                      placeholder="Brief summary for listings..."
-                    />
-                  </div>
-                  <div>
-                    <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
-                      <label className="text-[14px] font-medium text-[#25324B]">
-                        Main description (optional, HTML)
-                      </label>
-                      <Dialog
-                        open={mainDescPreviewOpen}
-                        onOpenChange={setMainDescPreviewOpen}
-                      >
-                        <DialogTrigger asChild>
-                          <Button
-                            type="button"
-                            variant="outline"
-                            size="sm"
-                            className="text-[10px]"
-                          >
-                            <Eye className="size-3" />
-                            Preview
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-[min(90vw,36rem)] max-h-[85vh] flex flex-col bg-white border-[#D6DDEB]">
-                          <DialogHeader>
-                            <DialogTitle className="text-[#25324B] text-left">
-                              Preview – Main description
-                            </DialogTitle>
-                          </DialogHeader>
-                          <div className="overflow-y-auto flex-1 min-h-0 rounded-md bg-[#F8FAFE] p-4 mt-2">
-                            {form.main_description?.trim() ? (
-                              <div
-                                className="prose prose-sm max-w-none text-[15px] leading-relaxed text-[#515B6F] prose-p:my-2 prose-ul:my-2 prose-li:my-0.5"
-                                dangerouslySetInnerHTML={{
-                                  __html: form.main_description.trim(),
-                                }}
-                              />
-                            ) : (
-                              <p className="text-[14px] text-[#7C8493] italic">
-                                Nothing to preview yet. Add some HTML in the
-                                field above and click Preview again.
-                              </p>
-                            )}
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-                    </div>
-                    <textarea
-                      className="bg-white file:text-foreground border-[#D6DDEB] text-[#25324B] placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-white w-full min-w-0 rounded-md border px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive min-h-[120px]"
-                      rows={5}
-                      value={form.main_description ?? ""}
-                      onChange={(e) =>
-                        handleChange("main_description", e.target.value)
-                      }
-                      placeholder="Rich HTML for detail page (e.g. &lt;p&gt;, &lt;strong&gt;, &lt;u&gt;, &lt;span style=...&gt;)"
-                    />
-                  </div>
-
-                  <Button
-                    type="button"
-                    onClick={handleAddJob}
-                    disabled={!canSubmit || isCreating}
-                    className="mt-2 inline-flex items-center gap-2 bg-[#4640DE] hover:bg-[#3b36be] disabled:cursor-not-allowed"
+                <Form {...jobForm}>
+                  <form
+                    onSubmit={jobForm.handleSubmit(handleAddJob)}
+                    className="space-y-4"
                   >
-                    {isCreating ? (
-                      <span>Adding...</span>
-                    ) : (
-                      <>
-                        <Plus className="size-4" />
-                        <span>Add job</span>
-                      </>
-                    )}
-                  </Button>
-                </div>
+                    <FormField
+                      control={jobForm.control}
+                      name="title"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-[14px] font-medium text-[#25324B]">
+                            Job title
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder="e.g. Senior Frontend Engineer"
+                            />
+                          </FormControl>
+                          {/* <FormMessage /> */}
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={jobForm.control}
+                      name="company"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-[14px] font-medium text-[#25324B]">
+                            Company
+                          </FormLabel>
+                          <FormControl>
+                            <Input {...field} placeholder="e.g. QuickHire" />
+                          </FormControl>
+                          {/* <FormMessage /> */}
+                        </FormItem>
+                      )}
+                    />
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FormField
+                        control={jobForm.control}
+                        name="location"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-[14px] font-medium text-[#25324B]">
+                              Location
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                placeholder="e.g. Dhaka, Bangladesh"
+                              />
+                            </FormControl>
+                            {/* <FormMessage /> */}
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={jobForm.control}
+                        name="category"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-[14px] font-medium text-[#25324B]">
+                              Category
+                            </FormLabel>
+                            <Select
+                              value={field.value}
+                              onValueChange={field.onChange}
+                            >
+                              <FormControl>
+                                <SelectTrigger className="w-full bg-white border-[#D6DDEB] text-[#25324B]">
+                                  <SelectValue placeholder="Select category" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {JOB_CATEGORIES.map((cat) => (
+                                  <SelectItem key={cat} value={cat}>
+                                    {cat}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            {/* <FormMessage /> */}
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <FormField
+                      control={jobForm.control}
+                      name="short_description"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-[14px] font-medium text-[#25324B]">
+                            Short description
+                          </FormLabel>
+                          <FormControl>
+                            <textarea
+                              className="file:text-foreground border-[#D6DDEB] text-[#25324B] placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground bg-white w-full min-w-0 rounded-md border px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
+                              rows={2}
+                              placeholder="Brief summary for listings..."
+                              {...field}
+                            />
+                          </FormControl>
+                          {/* <FormMessage />  */}
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={jobForm.control}
+                      name="main_description"
+                      render={({ field }) => (
+                        <FormItem>
+                          <div className="flex flex-wrap items-center justify-between gap-2">
+                            <FormLabel className="text-[14px] font-medium text-[#25324B]">
+                              Main description (HTML)
+                            </FormLabel>
+                            <Dialog
+                              open={mainDescPreviewOpen}
+                              onOpenChange={setMainDescPreviewOpen}
+                            >
+                              <DialogTrigger asChild>
+                                <Button
+                                  type="button"
+                                  variant="outline"
+                                  size="sm"
+                                  className="text-[10px]"
+                                >
+                                  <Eye className="size-3" />
+                                  Preview
+                                </Button>
+                              </DialogTrigger>
+                              <DialogContent className="max-w-[min(90vw,36rem)] max-h-[85vh] flex flex-col bg-white border-[#D6DDEB]">
+                                <DialogHeader>
+                                  <DialogTitle className="text-[#25324B] text-left">
+                                    Preview – Main description
+                                  </DialogTitle>
+                                </DialogHeader>
+                                <div className="overflow-y-auto flex-1 min-h-0 rounded-md bg-[#F8FAFE] p-4 mt-2">
+                                  {mainDescriptionValue?.trim() ? (
+                                    <div
+                                      className="prose prose-sm max-w-none text-[15px] leading-relaxed text-[#515B6F] prose-p:my-2 prose-ul:my-2 prose-li:my-0.5"
+                                      dangerouslySetInnerHTML={{
+                                        __html: mainDescriptionValue.trim(),
+                                      }}
+                                    />
+                                  ) : (
+                                    <p className="text-[14px] text-[#7C8493] italic">
+                                      Nothing to preview yet. Add some HTML in
+                                      the field above and click Preview again.
+                                    </p>
+                                  )}
+                                </div>
+                              </DialogContent>
+                            </Dialog>
+                          </div>
+                          <FormControl>
+                            <textarea
+                              className="bg-white file:text-foreground border-[#D6DDEB] text-[#25324B] placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-white w-full min-w-0 rounded-md border px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive min-h-[120px]"
+                              rows={5}
+                              placeholder="Rich HTML for detail page (e.g. <p>, <strong>, <u>, <span style=...>)"
+                              {...field}
+                            />
+                          </FormControl>
+                          {/* <FormMessage /> */}
+                        </FormItem>
+                      )}
+                    />
+
+                    <Button
+                      type="submit"
+                      // disabled={!jobForm.formState.isValid || isCreating}
+                      className="mt-2 inline-flex items-center gap-2 bg-[#4640DE] hover:bg-[#3b36be] disabled:cursor-not-allowed"
+                    >
+                      {isCreating ? (
+                        <span>Adding...</span>
+                      ) : (
+                        <>
+                          <Plus className="size-4" />
+                          <span>Add job</span>
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                </Form>
               </div>
 
               <div>

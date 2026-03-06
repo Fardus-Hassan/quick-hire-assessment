@@ -87,7 +87,7 @@ export function ApplyForm({ jobId, jobTitle }: ApplyFormProps) {
                 <FormControl>
                   <Input placeholder="Enter your full name" {...field} />
                 </FormControl>
-                <FormMessage />
+                {/* <FormMessage /> */}
               </FormItem>
             )}
           />
@@ -105,7 +105,7 @@ export function ApplyForm({ jobId, jobTitle }: ApplyFormProps) {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                {/* <FormMessage /> */}
               </FormItem>
             )}
           />
@@ -123,7 +123,7 @@ export function ApplyForm({ jobId, jobTitle }: ApplyFormProps) {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                {/* <FormMessage /> */}
               </FormItem>
             )}
           />
@@ -142,7 +142,7 @@ export function ApplyForm({ jobId, jobTitle }: ApplyFormProps) {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                {/* <FormMessage /> */}
               </FormItem>
             )}
           />
